@@ -1,6 +1,7 @@
 package com.na;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.when;
 
 import java.util.HashSet;
@@ -45,6 +46,20 @@ class ConnectedCityApplicationServiceTests {
 		when(cityMap.get(Mockito.anyString())).thenReturn(hashSet);
 		String result = connectService.checkIfOriginHasDestination("Philadelphia", "Newark");
 		assertEquals("no", result);
+	}
+	
+	@Test
+	public void testConnectedServiceIfOriginOrDestinationNotProvided() throws Exception {
+		
+		HashSet<String> hashSet = new HashSet<String>();
+		hashSet.add("NoCity");
+		when(cityMap.containsKey(Mockito.anyString())).thenReturn(true);
+		when(cityMap.get(Mockito.anyString())).thenReturn(hashSet);
+		try {
+			connectService.checkIfOriginHasDestination("Philadelphia", null);
+		}catch(Exception e) {
+			assertNotNull(e.getMessage());
+		}
 	}
 
 }
