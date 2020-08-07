@@ -19,7 +19,7 @@ public class ConnectController {
 	
    
 	@GetMapping("/connected")
-	public ResponseEntity<String> checkOriginDestination(@RequestParam(required = false) String origin , @RequestParam(required = false) String destination ) {
+	public ResponseEntity<String> checkOriginDestination(@RequestParam(required = true) String origin , @RequestParam(required = true) String destination ) {
 		String result = connectService.checkIfOriginHasDestination(origin, destination);
 		if(result.equals(ConnectService.YES)) {
 			return new ResponseEntity<>(result, HttpStatus.OK);
